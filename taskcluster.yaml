@@ -75,4 +75,4 @@ tasks:
       name: Playground - Pull Request - Test ({{ event.base.user.login }})
       description: Just testing...
       owner: '{{ event.head.user.email }}'
-source: '{{ event.head.repo.url }}'
+      source: '{{ event.head.repo.url }}'
