@@ -18,7 +18,10 @@ tasks:
       github:
         events:
           - release
-    scopes: []
+    scopes: [
+      "queue:route:notify.irc-channel.#focus-irc-test.on-completed",
+      "queue:route:notify.irc-channel.#focus-irc-test.on-failed"
+    ]
     payload:
       maxRunTime: 1800
       deadline: "{{ '2 hours' | $fromNow }}"
@@ -60,6 +63,10 @@ tasks:
           - pull_request.edited
           - pull_request.synchronize
           - pull_request.reopened
+    scopes: [
+      "queue:route:notify.irc-channel.#focus-irc-test.on-completed",
+      "queue:route:notify.irc-channel.#focus-irc-test.on-failed"
+    ]
     payload:
       maxRunTime: 3600
       deadline: "{{ '2 hours' | $fromNow }}"
