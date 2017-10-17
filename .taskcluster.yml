@@ -56,10 +56,10 @@ tasks:
           - pull_request.synchronize
           - pull_request.reopened
     routes:
-      - "queue:route:notify.irc-channel.*"
       - "notify.irc-channel.#focus-irc-test.on-completed"
       - "notify.irc-channel.#focus-irc-test.on-failed"
     scopes:
+      - "queue:route:notify.irc-channel.*"
       - "queue:route:notify.irc-channel.#focus-irc-test.on-completed"
       - "queue:route:notify.irc-channel.#focus-irc-test.on-failed"
     payload:
