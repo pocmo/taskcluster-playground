@@ -12,37 +12,7 @@ tasks:
 # the repo. It will build release versions of Focus and Klar and make them
 # available for download as task artifacts. Those builds are *not* signed.
 ###############################################################################
-  - provisionerId: '{{ taskcluster.docker.provisionerId }}'
-    workerType: '{{ taskcluster.docker.workerType }}'
-    extra:
-      github:
-        events:
-          - release
-    payload:
-      maxRunTime: 1800
-      deadline: "{{ '2 hours' | $fromNow }}"
-      image: 'mozillamobile/focus-android'
-      command:
-        - /bin/bash
-        - '--login'
-        - '-cx'
-        - >-
-          mkdir foo
-          cd foo
-          git clone https://github.com/mozilla-mobile/focus-android.git
-          git fetch {{ event.base.repo.branch }}
-          && git config advice.detachedHead false
-          && git checkout {{ event.version }}
-      artifacts:
-        'public':
-          type: 'directory'
-          path: '/opt/focus-android/app/build/outputs/apk'
-          expires: "{{ '1 week' | $fromNow }}"
-    metadata:
-      name: Focus for Android - Release builds
-      description: Task for building unsigned release builds of Firefox Focus and Klar.
-      owner: 'skaspari@mozilla.com'
-      source: '{{ event.head.repo.url }}'
+
 ###############################################################################
 # Task: Pull requests
 ###############################################################################
