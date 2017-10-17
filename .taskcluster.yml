@@ -18,9 +18,7 @@ tasks:
       github:
         events:
           - release
-    scopes:
-      - "queue:create-task:aws-provisioner-v1/github-worker"
-      - "queue:scheduler-id:taskcluster-github"
+    scopes: []
     payload:
       maxRunTime: 1800
       deadline: "{{ '2 hours' | $fromNow }}"
@@ -36,14 +34,11 @@ tasks:
           git fetch {{ event.base.repo.branch }}
           && git config advice.detachedHead false
           && git checkout {{ event.version }}
-      features: {
-        "taskclusterProxy": true
-      }
-    artifacts:
-      'public':
-        type: 'directory'
-        path: '/opt/focus-android/app/build/outputs/apk'
-        expires: "{{ '1 week' | $fromNow }}"
+      artifacts:
+        'public':
+          type: 'directory'
+          path: '/opt/focus-android/app/build/outputs/apk'
+          expires: "{{ '1 week' | $fromNow }}"
     metadata:
       name: Focus for Android - Release builds ({{ event.version }})
       description: Task for building unsigned release builds of Firefox Focus and Klar.
