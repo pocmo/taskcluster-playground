@@ -72,7 +72,7 @@ tasks:
         - >-
           echo "Hello World"
     metadata:
-      name: Playground - Pull Request - Test
+      name: Playground - Pull Request - Test ({{ event.base.user.login }})
       description: Just testing...
       owner: '{{ event.head.user.email }}'
 source: '{{ event.head.repo.url }}'
