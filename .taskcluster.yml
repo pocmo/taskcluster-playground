@@ -28,9 +28,9 @@ tasks:
         - '-cx'
         - >-
           mkdir foo
-          cd foo
-          git clone https://github.com/mozilla-mobile/focus-android.git
-          git fetch {{ event.base.repo.branch }}
+          && cd foo
+          && git clone https://github.com/mozilla-mobile/focus-android.git
+          && git fetch {{ event.base.repo.branch }}
           && git config advice.detachedHead false
           && git checkout {{ event.version }}
       artifacts:
@@ -39,7 +39,7 @@ tasks:
           path: '/opt/focus-android/app/build/outputs/apk'
           expires: "{{ '1 week' | $fromNow }}"
     metadata:
-      name: Focus for Android - Release builds ({{ event.version }})
+      name: Focus/Klar for Android - Release builds ({{ event.version }})
       description: Task for building unsigned release builds of Firefox Focus and Klar.
       owner: 'skaspari@mozilla.com'
       source: '{{ event.head.repo.url }}'
@@ -55,13 +55,6 @@ tasks:
           - pull_request.edited
           - pull_request.synchronize
           - pull_request.reopened
-    routes:
-      - "notify.irc-channel.#focus-irc-test.on-completed"
-      - "notify.irc-channel.#focus-irc-test.on-failed"
-    scopes:
-      - "queue:route:notify.irc-channel.*"
-      - "queue:route:notify.irc-channel.#focus-irc-test.on-completed"
-      - "queue:route:notify.irc-channel.#focus-irc-test.on-failed"
     payload:
       maxRunTime: 3600
       deadline: "{{ '2 hours' | $fromNow }}"
