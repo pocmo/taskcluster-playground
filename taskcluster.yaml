@@ -34,9 +34,9 @@ tasks:
         - '--login'
         - '-c'
         - >-
-          echo "Hello World"
+          echo 'Hello World!'
     metadata:
-      name: Playground - Pull Request - Test
-      description: Just testing...
+      name: Focus for Android - Build - Pull Request
+      description: Building Focus for Android (via Gradle) - triggered by a pull request.
       owner: '{{ event.head.user.email }}'
       source: '{{ event.head.repo.url }}'
