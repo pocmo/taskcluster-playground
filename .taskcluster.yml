@@ -39,6 +39,10 @@ tasks:
           type: 'directory'
           path: '/opt/focus-android/app/build/outputs/apk'
           expires: "{{ '1 week' | $fromNow }}"
+    routes: [
+      "notify.irc-channel.#focus-irc-test.on-completed",
+      "notify.irc-channel.#focus-irc-test.on-failed"
+    ]
     metadata:
       name: Focus for Android - Release builds ({{ event.version }})
       description: Task for building unsigned release builds of Firefox Focus and Klar.
@@ -66,6 +70,10 @@ tasks:
         - '-c'
         - >-
           echo "Hello World"
+    routes: [
+      "notify.irc-channel.#focus-irc-test.on-completed",
+      "notify.irc-channel.#focus-irc-test.on-failed"
+    ]
     metadata:
       name: Playground - Pull Request - Test ({{ event.base.user.login }})
       description: Just testing...
