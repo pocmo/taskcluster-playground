@@ -18,9 +18,6 @@ tasks:
       github:
         events:
           - release
-    scopes:
-      - "queue:create-task:aws-provisioner-v1/github-worker"
-      - "queue:scheduler-id:taskcluster-github"
     payload:
       maxRunTime: 1800
       deadline: "{{ '2 hours' | $fromNow }}"
@@ -36,16 +33,13 @@ tasks:
           git fetch {{ event.base.repo.branch }}
           && git config advice.detachedHead false
           && git checkout {{ event.version }}
-      features: {
-        "taskclusterProxy": true
-      }
-    artifacts:
-      'public':
-        type: 'directory'
-        path: '/opt/focus-android/app/build/outputs/apk'
-        expires: "{{ '1 week' | $fromNow }}"
+      artifacts:
+        'public':
+          type: 'directory'
+          path: '/opt/focus-android/app/build/outputs/apk'
+          expires: "{{ '1 week' | $fromNow }}"
     metadata:
-      name: Focus for Android - Release builds ({{ event.version }})
+      name: Focus for Android - Release builds
       description: Task for building unsigned release builds of Firefox Focus and Klar.
       owner: 'skaspari@mozilla.com'
       source: '{{ event.head.repo.url }}'
@@ -72,7 +66,7 @@ tasks:
         - >-
           echo "Hello World"
     metadata:
-      name: Playground - Pull Request - Test ({{ event.base.user.login }})
+      name: Playground - Pull Request - Test
       description: Just testing...
       owner: '{{ event.head.user.email }}'
       source: '{{ event.head.repo.url }}'
