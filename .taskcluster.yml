@@ -30,7 +30,7 @@ tasks:
           mkdir foo
           && cd foo
           && git clone https://github.com/mozilla-mobile/focus-android.git
-          && git fetch {{ event.base.repo.branch }}
+          && git fetch origin {{ event.base.repo.branch }}
           && git config advice.detachedHead false
           && git checkout {{ event.version }}
       artifacts:
