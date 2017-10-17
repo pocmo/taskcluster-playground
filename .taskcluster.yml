@@ -18,10 +18,6 @@ tasks:
       github:
         events:
           - release
-    scopes: [
-      "queue:route:notify.irc-channel.#focus-irc-test.on-completed",
-      "queue:route:notify.irc-channel.#focus-irc-test.on-failed"
-    ]
     payload:
       maxRunTime: 1800
       deadline: "{{ '2 hours' | $fromNow }}"
@@ -42,10 +38,6 @@ tasks:
           type: 'directory'
           path: '/opt/focus-android/app/build/outputs/apk'
           expires: "{{ '1 week' | $fromNow }}"
-    routes: [
-      "notify.irc-channel.#focus-irc-test.on-completed",
-      "notify.irc-channel.#focus-irc-test.on-failed"
-    ]
     metadata:
       name: Focus for Android - Release builds ({{ event.version }})
       description: Task for building unsigned release builds of Firefox Focus and Klar.
@@ -63,10 +55,13 @@ tasks:
           - pull_request.edited
           - pull_request.synchronize
           - pull_request.reopened
-    scopes: [
-      "queue:route:notify.irc-channel.#focus-irc-test.on-completed",
-      "queue:route:notify.irc-channel.#focus-irc-test.on-failed"
-    ]
+    routes:
+      - "queue:route:notify.irc-channel.*"
+      - "notify.irc-channel.#focus-irc-test.on-completed"
+      - "notify.irc-channel.#focus-irc-test.on-failed"
+    scopes:
+      - "queue:route:notify.irc-channel.#focus-irc-test.on-completed"
+      - "queue:route:notify.irc-channel.#focus-irc-test.on-failed"
     payload:
       maxRunTime: 3600
       deadline: "{{ '2 hours' | $fromNow }}"
@@ -77,10 +72,6 @@ tasks:
         - '-c'
         - >-
           echo "Hello World"
-    routes: [
-      "notify.irc-channel.#focus-irc-test.on-completed",
-      "notify.irc-channel.#focus-irc-test.on-failed"
-    ]
     metadata:
       name: Playground - Pull Request - Test ({{ event.base.user.login }})
       description: Just testing...
